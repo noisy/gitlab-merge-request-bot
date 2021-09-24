@@ -34,6 +34,13 @@ for group_project in group_projects:
             print(f'Approved: ✔ ({received}/{needed})️')
             for approver in approval.approved_by:
                 print(f'  - ✔️  by {approver["user"]["name"]}')
+            print(f'Pipelines:')
+            for index, pipeline in enumerate(mr.pipelines.list()):
+                if index != 0:
+                    print("    " + ('┈' * 75))
+                print(f'    Source: {pipeline.source}')
+                status = '✔️  ' + pipeline.status if pipeline.status == 'success' else pipeline.status
+                print(f'    Status: {status}')
 
         else:
             print(f'Approved: ❌️ ({received}/{needed})')
